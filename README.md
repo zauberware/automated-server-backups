@@ -45,7 +45,7 @@ You are now in the home folder of the root user.
 ### Create a new script file
 
 ```bash
-vi backup.sh
+$ vi backup.sh
 ```
  To start `editing` mode in VIM you can press `i`. You file should look like the following:
 
@@ -146,6 +146,8 @@ If everything went well your backup files are now located in your defined `$dest
 ```bash
 $ ls -la /mnt/backups/
 ```
+
+**The full script is available [here](https://github.com/zauberware/automated-server-backups/blob/master/backup.sh)**
 
 ## 3. Automate with crontabs
 With crontab we can automate the script execution. If you have never used crontab just use one of my examples or read through the [docs](https://linux.die.net/man/1/crontab). To make it short: There is a file in where you place line by line jobs which will then be executed defined by parameters.
