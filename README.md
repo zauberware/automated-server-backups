@@ -3,7 +3,7 @@
 # Automated Server Backups!
 
 ### The Mission
-1. __Weekly backups of folder and databases on a ubuntu server__
+1. __Weekly backups of folder and mysql databases on a ubuntu server__
 2. __Email notification about finished backups and easy way to download the files__
 
 I came across a lot of weird server backup software with design and UX from the 90th coupled with hundred of options. So I decided to create this simple script to do the backups of files and databases. 
@@ -13,7 +13,7 @@ I came across a lot of weird server backup software with design and UX from the 
 2. Define what and where to backup
 3. Automate with crontabs
 4. Sending email notification
-5. Download backup
+5. Download server backup
 
 ### Prerequisites:
 
@@ -24,7 +24,7 @@ I came across a lot of weird server backup software with design and UX from the 
 
 ## 1. Access server and create script
 
-Let's login into your server and create a script for your backups. To make it easy we are using the user `root`. For production system you should create an extra user with access to only these files and folders you want to backup.
+Let's login into your server and create a script for your backups. To make it easy we are using the user `root`. For production system you should create an extra user with access to only these files and folders you want to include.
 
 ### Login with SSH
 
@@ -68,7 +68,7 @@ If you got stuck in VIM here is a [list](https://kb.iu.edu/d/afdc) of helpful co
 `backup.sh` of this repository looks larger than it is. 90% are `echo`s to generate a useful email notification. Let's cut out all the non important stuff and walk through the script.
 
 ### What to Backup ?
-Define paths to folders and databases you want to include in the backup. Most of the time you want to back up a running application, so you should include the app sources and the database. __Don't include the whole file system__ -> You will get problems with disk space ;-) 
+Define paths to folders and databases you want to include in the backup. Most of the time you want to backup a running application, so you should include the app sources and the database. __Don't include the whole file system__ -> You will get problems with disk space ;-) 
 
 ```bash
 # backup folders
@@ -78,7 +78,7 @@ backup_files="/var/www/my-website.de /var/www/wordpress /etc"
 backup_databases="mywebsite wordpress"
 ```
 
-> We only include sources we really need in case of an emergency. We are using GIT for our projects, so there is no need to include the source code in the backups. But upload folders, databases, config files, php settings, ssl certificates are the import things to think of. 
+> We only include sources we really need in case of an emergency. We are using GIT for our projects, so there is no need to include the source code in the server backups. But upload folders, databases, config files, php settings, ssl certificates are the import things to think of. 
 
 ### Where to backup ?
 Define a destination folder for your backup files. The folder should be placed somewhere on your system where it is persisted. (If you don't use root user you have to be sure that you have access to that location and btw that user also needs access to the files you want to back up.)
@@ -121,7 +121,7 @@ Confused by `czvfP` ?
 Type `$ man tar` or visit the [docs](https://www.systutorials.com/docs/linux/man/1-tar/) for more information.
 
 
-### Backup databases with mysqldump
+### Backup MariaDB databases with mysqldump
 ```bash
 # database dump in temp file
 mysqldump --user root --routines --triggers --single-transaction --databases $backup_databases > "$dest/sql_dump.sql"
@@ -241,7 +241,13 @@ $ tar -xvzf host-mysql-18-03-25.tar
 ```
 
 ## Thoughts:
-Currently we are generating the file names for our backup with the current date. This could be a problem if you are running the script more than once a day. Currently the file will be overwritten.
+Currently we are generating the file names for our server backup with the current date. This could be a problem if you are running the script more than once a day. Currently the file will be overwritten.
+
+Currently there is nothing which handles old server backups. If you run daily jobs you will hit the disk space limit soon.
+
+What would this script look like for a windows server backup?
+
+How to include this script in CMS ?
 
 ## Links:
 
