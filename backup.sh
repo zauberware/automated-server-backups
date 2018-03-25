@@ -42,17 +42,22 @@ echo
 echo "================================================================="
 echo ""
 
-# backup the files using tar.
+# database dump in temp file
 tar czvfP $dest/$archive_file $backup_files
 
-# database backup 
+# pack the sql dump with tar and remove dump
 mysqldump --user root --routines --triggers --single-transaction --databases $backup_databases > "$dest/sql_dump.sql"
-tar czfP $dest/$mysql_file "$dest/sql_dump.sql" && rm $dest/sql_dump.sql
+tar czfP $dest/$mysql_file "$dest/sql_dump.sql"
+rm $dest/sql_dump.sql
 
 # print end status message
 echo
 echo "Backup SUCCESS"
 date
+echo
+echo "Delete old files"
+find $dest -mtime +14 -type f -delete
+echo
 
-# long listing of files in $dest to check file sizes
+# echo generated files
 ls -lh $dest

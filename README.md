@@ -1,5 +1,6 @@
 
 
+
 # Automated Server Backups!
 
 ### The Mission
@@ -110,13 +111,11 @@ tar czvfP $dest/$archive_file $backup_files
 ```
 Confused by `czvfP` ? 
 
-| option | description |
-|--|--|
-|`-c, --create`| create a new archive |
-|`-z, --gzip`| filter the archive through gzip |
-|`-v, --verbose`| verbosely list files processed |
-|`-f, --file=ARCHIVE`| use archive file or device ARCHIVE |
-|`-p, --preserve-permissions`| extract information about file permissions |
+ - `-c` create a new archive 
+ - `-z` filter the archive through gzip 
+ - `-v` verbosely list files processed 
+ - `-f` use archive file or device ARCHIVE 
+ - `-p` extract information about file permissions
 
 Type `$ man tar` or visit the [docs](https://www.systutorials.com/docs/linux/man/1-tar/) for more information.
 
@@ -240,14 +239,27 @@ Unpack the downloaded file
 $ tar -xvzf host-mysql-18-03-25.tar
 ```
 
+## Enhancements
+
+### Delete old backup files
+What to do with old back up files? You may don't need them anymore. If you run jobs on a daily basis you will hit the disk space limit soon. You could include a "old-file-deleter" in your script. Let's say we want to delete all files which are older than 14 days.
+
+```bash
+# place at the end of backup.sh
+find /mnt/backup -mtime +14 -type f -delete
+```
+ - `/mnt/backup` to search in
+ - `-mtime +14` older than 14 days
+ - `-type f` only files
+ - `-delete` no surprise. **Remove it to test your `find` filter before executing the whole command**
+
 ## Thoughts:
-Currently we are generating the file names for our server backup with the current date. This could be a problem if you are running the script more than once a day. Currently the file will be overwritten.
 
-Currently there is nothing which handles old server backups. If you run daily jobs you will hit the disk space limit soon.
-
-What would this script look like for a windows server backup?
-
-How to include this script in CMS ?
+ - Currently we are generating the file names for our server backup with
+   the current date. This could be a problem if you are running the
+   script more than once a day. Currently the file will be overwritten.
+ - What would this script look like for a windows server backup?
+ - How to include this script in CMS ?
 
 ## Links:
 
@@ -256,4 +268,12 @@ How to include this script in CMS ?
  - Crontabs https://www.computerhope.com/unix/ucrontab.htm
  - Crontab examples https://tecadmin.net/crontab-in-linux-with-20-examples-of-cron-schedule/
 
+## Author
+
+__Script:__ <https://github.com/zauberware/automated-server-backups>  
+
+__Author website:__ [https://www.zauberware.com](https://www.zauberware.com)    
+__Author:__ zauberware technologies / Simon Franzen <simon@zauberware.com>  
+
+![zauberware technologies](https://avatars3.githubusercontent.com/u/1753330?s=200&v=4)
 
