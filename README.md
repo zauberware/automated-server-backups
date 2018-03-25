@@ -259,7 +259,6 @@ find /mnt/backup -mtime +14 -type f -delete
    the current date. This could be a problem if you are running the
    script more than once a day. Currently the file will be overwritten.
  - What would this script look like for a windows server backup?
- - How to include this script in CMS ?
 
 ## Links:
 
