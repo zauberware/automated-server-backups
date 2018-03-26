@@ -85,6 +85,6 @@ find $dest -mtime +14 -type f
 find $dest -mtime +14 -type f -delete
 echo ""
 
-# long listing of files in $dest to check file sizes
+# echo generated files
 echo "Files generated"
 ls -lh $dest
