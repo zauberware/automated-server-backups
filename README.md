@@ -217,6 +217,14 @@ If you want to get informed if a new backup is available you can use `mail` to s
 */1 * * * * /bin/sh backup.sh | mail -s "NEW BACKUP - Your server" -a "Your server Backup Scheduler <backup@yourserver.de>" your@company.com
 ```
 
+Be sure that you are using the right option parameters for the installed mail version or even application. 
+
+```bash
+# other mail up using -r to set a sender
+*/1 * * * * /bin/sh files/backup.sh | mail -s "[BACKUP] Ghost" -r "Your server Backup Scheduler <backup@yourserver.de>" your@company.com
+```
+
+
 ## 5. Download backup
 In our script we already gave a hint about how to download the files. You might give someone else an access with an extra user and he or she can download the files with SFTP client or the CLI. While backups are stored under `/mnt/backups` you can create a symlink from users home to that location.
 
@@ -232,11 +240,11 @@ Logout of your server and try to download the files with one line
 ```bash
 # on you local machine
 $ cd ~/Downloads
-$ scp root@111.222.333.444:backups/host-mysql-18-03-25.tar .
+$ scp root@111.222.333.444:backups/host-mysql-18-03-25.tar backup
 ```
 Unpack the downloaded file
 ```bash
-$ tar -xvzf host-mysql-18-03-25.tar
+$ tar -xvzf backup/host-mysql-18-03-25.tar
 ```
 
 ## Enhancements
@@ -252,6 +260,17 @@ find /mnt/backup -mtime +14 -type f -delete
  - `-mtime +14` older than 14 days
  - `-type f` only files
  - `-delete` no surprise. **Remove it to test your `find` filter before executing the whole command**
+
+
+### Wrapping the script
+Some webhoster only let you trigger jobs via an UI. If so, they won't accept your statement with `... | mail ...`. Wrap the whole command into a `backup-cron.sh` file:
+
+```bash
+
+/bin/sh backup.sh | mail -s "NEW BACKUP - Your server" -a "Your server Backup Scheduler <backup@yourserver.de>" your@company.com
+```
+
+In the webhoster's interface you can then just trigger the `backup-cron.sh` file.
 
 ## Thoughts:
 
