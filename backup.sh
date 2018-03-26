@@ -31,11 +31,11 @@ date
 echo
 echo "================================================================"
 echo
-echo "Download database backup with $ scp backup@185.102.93.107:backups/$mysql_file backup"
+echo "Download database backup with $ scp root@111.222.333.444:backups/$mysql_file backup"
 echo
 echo "Unpack files with $ tar -xvzf backup/$mysql_file"
 echo
-echo "Download the full backup with with $ scp backup@185.102.93.107:backups/$archive_file backup"
+echo "Download the full backup with with $ scp root@111.222.333.444:backups/$archive_file backup"
 echo
 echo "Unpack files with $ tar -xvzf backup/$archive_file"
 echo 
