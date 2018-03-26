@@ -9,7 +9,7 @@
 host=hostname
 
 # what to backup
-backup_files="/var/www/wordpress /var/www/mywebsite"
+backup_files="/var/www/wordpress /var/www/mywebsite /etc"
 #backup_files="/home/deploy/repositories /etc"
 
 # which databases
