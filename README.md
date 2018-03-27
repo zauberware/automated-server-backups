@@ -298,8 +298,10 @@ $ scp $server:$from/$(ssh $server "ls -t $from | head -2") $to
 
 #### Download with SFTP
 
-`$ sftp root@111.222.333.444`
-`get -r backups local-backups`
+```bash
+$ sftp root@111.222.333.444
+get -r backups local-backups
+```
 
 ## Thoughts:
 
