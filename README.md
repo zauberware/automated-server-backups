@@ -218,7 +218,7 @@ Be sure that you are using the right option parameters for the installed mail ve
 
 ```bash
 # other mail up using -r to set a sender
-*/1 * * * * /bin/sh files/backup.sh | mail -s "[BACKUP] Ghost" -r "Your server Backup Scheduler <backup@yourserver.de>" your@company.com
+*/1 * * * * /bin/sh files/backup.sh | mail -s "[BACKUP] Your Server" -r "Your server Backup Scheduler <backup@yourserver.de>" your@company.com
 ```
 
 
@@ -301,7 +301,7 @@ $ scp $server:$from/$(ssh $server "ls -t $from | head -2") $to
 ```bash
 $ sftp root@111.222.333.444
 get -r backups local-backups
-```
+``
 
 ## Thoughts:
 
