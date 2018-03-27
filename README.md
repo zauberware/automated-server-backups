@@ -1,6 +1,3 @@
-
-
-
 # Automated Server Backups!
 
 ### The Mission
@@ -271,6 +268,38 @@ Some webhoster only let you trigger jobs via an UI. If so, they won't accept you
 ```
 
 In the webhoster's interface you can then just trigger the `backup-cron.sh` file.
+
+### Download alternatives
+When it's still on the same machine, it isn't a backup. So here are some approaches how to download the backup. These cmd could also be executed on a remote machine with crontabs.
+
+#### Download with rsync
+
+```bash
+# syncs everything from backups to local-backups 
+$ rsync -a -v root@111.222.333.444:backups/ local-backups/
+```
+
+#### Only download the latest file(s) with scp
+
+```bash
+ 
+# create server var 
+$ server=root@111.222.333.444
+
+# folder destination (server)
+$ from=/backups
+
+# folder to store backup
+$ to=local-backups
+
+# download only latest 2 files (latest two, because it's the backup and db export)
+$ scp $server:$from/$(ssh $server "ls -t $from | head -2") $to
+```
+
+#### Download with SFTP
+
+`$ sftp root@111.222.333.444`
+`get -r backups local-backups`
 
 ## Thoughts:
 
